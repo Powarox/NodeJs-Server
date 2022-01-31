@@ -1,10 +1,13 @@
 const http = require("http")
-import { fetchPrice } from './index.js'
+const fetchPrice = require('./index.js')
 
 const server = http.createServer((req, res) => {
-    
-    let data = new fetchPrice()
-    console.log(data)
+
+    // Fetch crypto price with coinGecko
+    let data = fetchPrice()
+    data.then((price) => {
+        console.log(price)
+    })
 
     res.end('coucou')
 })
