@@ -1,24 +1,12 @@
-const http = require("http");
+const http = require("http")
+import { fetchPrice } from './index.js'
 
-const server = http.createServer(function(req, res) {
+const server = http.createServer((req, res) => {
+    
+    let data = new fetchPrice()
+    console.log(data)
 
-    //1. Import coingecko-api
-    const CoinGecko = require('coingecko-api');
-
-    //2. Initiate the CoinGecko API Client
-    const CoinGeckoClient = new CoinGecko();
-
-    //3. Make calls
-    var func = async() => {
-        let data = await CoinGeckoClient.ping();
-        // let coin = await CoinGeckoClient.getPrice(ids = 'terra-luna', vs_currencies = 'usd');
-
-        res.write(data);
-    };
-    func()
-
-    res.end();
+    res.end('coucou')
 })
 
-// Lancer le serveur
-server.listen(3000)
+server.listen(4000) // process.env.PORT ||
