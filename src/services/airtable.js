@@ -9,18 +9,11 @@ export function fetchDataBase() {
         for (let res in response) {
             data[response[res].id] = {
                 'Name': response[res].fields['Name'],
-                'Amounts': response[res].fields['Amounts'],
-                'Coins': response[res].fields['Coins'],
                 'MarketPrice': response[res].fields['Market Price'],
-                'MarketValue': response[res].fields['Market Value'],
-                'ProfitsUsd': response[res].fields['Profits $'],
-                'ProfitsPer': response[res].fields['Profits %'],
-                'App': response[res].fields['App'],
                 'PriceName': response[res].fields['Price Name'],
-                'BuyPrice': response[res].fields['Buy Price']
             }
         }
-        console.log(data);
+        return data;
     },
     function done(err) {
         if (err) { console.error(err); return; }
@@ -28,7 +21,7 @@ export function fetchDataBase() {
 }
 
 // Create TransactionBuy and update Wallet
-export function createTransactionBuy(info) {
+export function updateWallet(info) {
     airtableBase('Wallet').update([{
         "id": info.id,
         "fields": {

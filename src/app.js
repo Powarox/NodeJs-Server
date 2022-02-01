@@ -1,5 +1,7 @@
 import http from 'http'
+import { } from 'dotenv/config'
 import fetchPrice from './services/coinGecko.js'
+import { fetchDataBase, updateWallet } from './services/airtable.js'
 
 const server = http.createServer((req, res) => {
 
@@ -10,12 +12,10 @@ const server = http.createServer((req, res) => {
     */
     let data = fetchPrice()
     data.then((price) => {
-        console.log(price)
+        // console.log(price)
     })
-
-    console.log(process.env.AIRTABLE_SECRET_KEY)
 
     res.end('coucou')
 })
 
-server.listen(process.env.PORT || 4000) // process.env.PORT ||
+server.listen(process.env.PORT) // process.env.PORT ||
