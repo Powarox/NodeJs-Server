@@ -1,5 +1,5 @@
 const http = require("http")
-const fetchPrice = require('./index.js')
+const fetchPrice = require('./services/coinGecko.js')
 
 const server = http.createServer((req, res) => {
 
