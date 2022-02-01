@@ -1,6 +1,6 @@
 import CoinGecko from 'coingecko-api'
 
-export default async function fetchPrice() {
+export async function fetchPrice() {
     const CoinGeckoClient = new CoinGecko();
     return await CoinGeckoClient.simple.price({
         ids: [
