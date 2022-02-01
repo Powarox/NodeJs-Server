@@ -12,6 +12,12 @@ const server = http.createServer((req, res) => {
     fetchDataBase().then((data) => {
         // console.log(data)
     })
+
+    function func() {
+        console.log('coucou');
+    }
+
+    // setInterval(func, 1000*5)   // mili * sec * min * heure
     
 
     res.end('coucou')
