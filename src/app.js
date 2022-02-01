@@ -1,5 +1,5 @@
-const http = require("http")
-const fetchPrice = require('./services/coinGecko.js')
+import http from 'http'
+import fetchPrice from './services/coinGecko.js'
 
 const server = http.createServer((req, res) => {
 
@@ -13,7 +13,9 @@ const server = http.createServer((req, res) => {
         console.log(price)
     })
 
+    console.log(process.env.AIRTABLE_SECRET_KEY)
+
     res.end('coucou')
 })
 
-server.listen(4000) // process.env.PORT ||
+server.listen(process.env.PORT || 4000) // process.env.PORT ||

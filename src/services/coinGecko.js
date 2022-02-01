@@ -1,8 +1,8 @@
-const CoinGecko = require('coingecko-api')
-const CoinGeckoClient = new CoinGecko();
+import CoinGecko from 'coingecko-api'
 
-module.exports = async function fetchPrice() {
-    return data = await CoinGeckoClient.simple.price({
+export default async function fetchPrice() {
+    const CoinGeckoClient = new CoinGecko();
+    return await CoinGeckoClient.simple.price({
         ids: [
             'swissborg', 'the-graph', 'ripple', 'polkadot', 'chiliz', 'matic-network', 'mimo-parallel-governance-token',
             'enjincoin', 'Uniswap', 'republic-protocol', 'utrust', 'kyber-network', 'chainlink', 'audius', 'binancecoin',
