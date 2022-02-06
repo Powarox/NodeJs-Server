@@ -5,25 +5,32 @@ import { fetchDataBase, updateWallet } from './services/airtable.js'
 
 const server = http.createServer((req, res) => {
 
-    fetchPrice().then((price) => {
-        // console.log(price)
-    })
-
-    fetchDataBase().then((data) => {
-        // console.log(data)
-    })
-
-    function func() {
-        console.log('coucou')
+    function updatePriceAirtable() {
+        console.log('Start to update price...');
+        fetchDataBase().then((data) => {
+            fetchPrice().then((price) => {
+                for(let id in data) {
+                    for(let j in price.data) {
+                        if(data[id].PriceName === j) {
+                            data[id].MarketPrice = price.data[j].usd
+                            updateWallet(data[id], id)
+                        }
+                    }
+                }
+                console.log('Update finish !');
+            }) 
+        })
     }
 
-    // setInterval(func, 1000*5)   // mili * sec * min * heure
+    function createReccordAirtable() {
+        // Call fetch data & Create reccords in airtable golden book (1 / days)
+    }
+
+    // setInterval(updatePriceAirtable, 1000*20) 
+    // setInterval(createReccordAirtable, 1000*60*60*24)  
 
 
-    // Call fetch price & Update airtable price(15 min)
-    // Call fetch data & Create reccords in airtable golden book (1 / days)
-
-    res.end('coucou')
+    res.end('NodeJs server is runing !')
 })
 
 server.listen(process.env.PORT)

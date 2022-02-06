@@ -18,17 +18,16 @@ export async function fetchDataBase() {
     })
 }
 
-export function updateWallet(info) {
+export function updateWallet(data, id) {
     airtableBase('Wallet').update([{
-        "id": info.id,
+        "id": id,
         "fields": {
-            "Amounts": state.data[info.id].Amounts + info.amounts,
-            "Coins": state.data[info.id].Coins + info.quantity,
+            "Market Price": data.MarketPrice,
         }
     }],
     function (err, records) {
         if (err) { console.error(err); return; }
-        records.forEach(function (record) { console.log(record.getId()); });
+        records.forEach(function (record) { });
     });
 }
 
