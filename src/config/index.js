@@ -4,6 +4,7 @@ export default {
     port: process.env.PORT,
     airtable: {
         secretKey: process.env.AIRTABLE_SECRET_KEY,
-        secretBase: process.env.AIRTABLE_SECRET_BASE,
+        secretDevBase: process.env.AIRTABLE_DEV_SECRET_BASE,
+        secretRealBase: process.env.AIRTABLE_REAL_SECRET_BASE,
     },
 }

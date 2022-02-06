@@ -1,4 +1,4 @@
-import airtableBase from '../api/connexion.js'
+import { airtableBase } from '../api/connexion.js'
 
 export async function fetchDataBase() {
     return new Promise((result) => {
@@ -31,3 +31,20 @@ export function updateWallet(data, id) {
     });
 }
 
+export function createReccords(data) {
+    airtableBase('Wallet History').create([{
+        "fields": {
+            "Total Amounts": data.amounts,
+            "Total Market Value": data.marketValue,
+            "Total Take Profits $": data.takeProfits,
+        }
+    }],
+    function (err, records) {
+        if (err) { console.error(err); return; }
+        records.forEach(function (record) { });
+    });
+}
+
+
+
+            
