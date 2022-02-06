@@ -9,6 +9,9 @@ export async function fetchDataBase() {
             for (let res in response) {
                 data[response[res].id] = {
                     'Name': response[res].fields['Name'],
+                    'Amounts': response[res].fields['Amounts'],
+                    'Selled': response[res].fields['Selled'],
+                    'MarketValue': response[res].fields['Market Value'],
                     'MarketPrice': response[res].fields['Market Price'],
                     'PriceName': response[res].fields['Price Name'],
                 }
@@ -31,12 +34,12 @@ export function updateWallet(data, id) {
     });
 }
 
-export function createReccords(data) {
+export function createReccords(totalAmounts, totalTakeProfits, totalMarketValue) {
     airtableBase('Wallet History').create([{
         "fields": {
-            "Total Amounts": data.amounts,
-            "Total Market Value": data.marketValue,
-            "Total Take Profits $": data.takeProfits,
+            "Total Amounts": totalAmounts,
+            "Total Market Value": totalMarketValue,
+            "Total Take Profits $": totalTakeProfits,
         }
     }],
     function (err, records) {

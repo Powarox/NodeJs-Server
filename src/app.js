@@ -1,7 +1,7 @@
 import http from 'http'
 import { } from 'dotenv/config'
 import { fetchPrice } from './services/coinGecko.js'
-import { fetchDataBase, updateWallet } from './services/airtable.js'
+import { fetchDataBase, updateWallet, createReccords } from './services/airtable.js'
 
 const server = http.createServer((req, res) => {
 
@@ -23,12 +23,23 @@ const server = http.createServer((req, res) => {
     }
 
     function createReccordAirtable() {
-        // Call fetch data & Create reccords in airtable golden book (1 / days)
+        console.log('Create new reccord of total value...');
+        let totalAmounts = 0
+        let totalMarketValue = 0
+        let totalTakeProfits = 0
+
+        fetchDataBase().then((data) => {
+            for(let id in data) {
+                totalAmounts += data[id].Amounts
+                totalTakeProfits += data[id].Selled
+                totalMarketValue += data[id].MarketPrice
+            }
+            createReccords(totalAmounts, totalTakeProfits, totalMarketValue)
+        })
     }
 
-    // setInterval(updatePriceAirtable, 1000*20) 
+    // setInterval(updatePriceAirtable, 1000*60*15) 
     // setInterval(createReccordAirtable, 1000*60*60*24)  
-
 
     res.end('NodeJs server is runing !')
 })
