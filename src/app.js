@@ -1,9 +1,10 @@
 import http from 'http'
 import { } from 'dotenv/config'
-// import { fetchPrice } from './services/coinGecko.js'
-// import { fetchDataBase, updateWallet, createReccords } from './services/airtable.js'
+import { fetchPrice } from './services/coinGecko.js'
+import { fetchDataBase, updateWallet, createReccords } from './services/airtable.js'
 
 const server = http.createServer((req, res) => {
+    console.log('Server is working...');
 
     function updatePriceAirtable() {
         console.log('Start to update price...');
@@ -38,10 +39,8 @@ const server = http.createServer((req, res) => {
         })
     }
 
-    console.log('Server is working...');
-
-    // setInterval(updatePriceAirtable, 1000*60*15) 
-    // setInterval(createReccordAirtable, 1000*60*60*24)  
+    setInterval(updatePriceAirtable, 1000*60*15) 
+    setInterval(createReccordAirtable, 1000*60*60*24)  
 
     res.end('NodeJs server is runing !')
 })

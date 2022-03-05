@@ -12,6 +12,7 @@
     "dependencies": {
         "airtable": "^0.11.1",
         "babel-eslint": "^10.1.0",
+        "coingecko-api": "^1.0.10",
         "dotenv": "^15.0.0",
         "nodemon": "^2.0.7"
     },
