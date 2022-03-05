@@ -38,8 +38,8 @@ const server = http.createServer((req, res) => {
         })
     }
 
-    // setInterval(updatePriceAirtable, 1000*60*15) 
-    // setInterval(createReccordAirtable, 1000*60*60*24)  
+    setInterval(updatePriceAirtable, 1000*60*15) 
+    setInterval(createReccordAirtable, 1000*60*60*24)  
 
     res.end('NodeJs server is runing !')
 })
