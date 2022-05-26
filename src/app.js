@@ -1,14 +1,15 @@
-import http from 'http'
-import { } from 'dotenv/config'
-import { fetchPrice } from './services/coinGecko.js'
-import { fetchDataBase, updateWallet, createReccords } from './services/airtable.js'
+import http from 'http';
+import { } from 'dotenv/config';
+import { fetchPrice } from './services/coinGecko.js';
+import { fetchWalletDataBase, fetchCoinsListDataBase } from './services/airtable.js';
+import { updateWallet, updateCoinsList, createReccords } from './services/airtable.js';
 
 const server = http.createServer((req, res) => {
     console.log('Server is working...');
 
     function updatePriceAirtable() {
         console.log('Start to update price...');
-        fetchDataBase().then((data) => {
+        fetchWalletDataBase().then((data) => {
             fetchPrice().then((price) => {
                 // for(let id in data) {
                 //     for(let j in price.data) {
@@ -18,13 +19,33 @@ const server = http.createServer((req, res) => {
                 //         }
                 //     }
                 // }
+                console.log(data);
                 console.log(price);
-                console.log('Update finish !');
-            }) 
+                console.log("Update finish !");
+            });
+        });
+    }
+
+    function updatecoinsListPriceAirtable(){
+        console.log('Start to update coins list price...');
+        fetchCoinsListDataBase().then((data) => {
+            fetchPrice().then((price) => {
+                console.log(data);
+                for(let id in data) {
+                    for(let j in price.data) {
+                        if(data[id].CoingeckoID === j) {
+                            data[id].MarketPrice = price.data[j].usd
+                            updateCoinsList(data[id], id);
+                        }
+                    }
+                }
+            })
         })
     }
 
-    updatePriceAirtable();
+    updatecoinsListPriceAirtable()
+
+    // updatePriceAirtable();
 
     function createReccordAirtable() {
         console.log('Create new reccord of total value...');

@@ -1,6 +1,6 @@
 import { airtableBase } from '../api/connexion.js'
 
-export async function fetchDataBase() {
+export async function fetchWalletDataBase() {
     return new Promise((result) => {
         airtableBase('Wallet').select({
             view: "Grid view"
@@ -8,15 +8,33 @@ export async function fetchDataBase() {
             let data = {}
             for (let res in response) {
                 data[response[res].id] = {
-                    'Name': response[res].fields['Name'],
-                    'Amounts': response[res].fields['Amounts'],
-                    'Selled': response[res].fields['Selled'],
-                    'MarketValue': response[res].fields['Market Value'],
-                    'MarketPrice': response[res].fields['Market Price'],
-                    'PriceName': response[res].fields['Price Name'],
+                    Name: response[res].fields['Name'],
+                    Amounts: response[res].fields['Amounts'],
+                    Selled: response[res].fields['Selled'],
+                    MarketValue: response[res].fields['Market Value'],
+                    MarketPrice: response[res].fields['Market Price'],
+                    PriceName: response[res].fields['Price Name'],
                 }
             }
-            result(data)
+            result(data);
+        })
+    })
+}
+
+export async function fetchCoinsListDataBase() {
+    return new Promise((result) => {
+        airtableBase('Coins List').select({
+            view: "Grid view"
+        }).eachPage(response => {
+            let data = {}
+            for (let res in response) {
+                data[response[res].id] = {
+                    Name: response[res].fields["Name"],
+                    CoingeckoID: response[res].fields["Coingecko ID"],
+                    MarketPrice: response[res].fields["Market Price"],
+                };
+            }
+            result(data);
         })
     })
 }
