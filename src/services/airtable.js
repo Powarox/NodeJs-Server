@@ -34,6 +34,19 @@ export function updateWallet(data, id) {
     });
 }
 
+export function updateCoinsList(data, id) {
+    airtableBase('Coins List').update([{
+        "id": id,
+        "fields": {
+            "Market Price": data.MarketPrice,
+        }
+    }],
+    function (err, records) {
+        if (err) { console.error(err); return; }
+        records.forEach(function (record) { });
+    });
+}
+
 export function createReccords(totalAmounts, totalTakeProfits, totalMarketValue) {
     airtableBase('Wallet History').create([{
         "fields": {
