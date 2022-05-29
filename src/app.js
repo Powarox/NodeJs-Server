@@ -1,5 +1,4 @@
 import http from 'http';
-import axios from 'axios';
 import { } from 'dotenv/config';
 import { fetchPrice } from './services/coinGecko.js';
 import { fetchWalletDataBase, fetchCoinsListDataBase } from './services/airtable.js';
@@ -57,24 +56,19 @@ const server = http.createServer((req, res) => {
         });
     }
 
-    // setInterval(updateWalletPriceAirtable, 1000*60*15);
-    // setInterval(updatecoinsListPriceAirtable, 1000*60*15);
-    // setInterval(createReccordAirtable, 1000*60*60*24);
-
-    function sendMail(){
-        axios
-            .get("https://dev-21606393.users.info.unicaen.fr/Sinay/")
-            .then((res) => {
-                console.log(`statusCode: ${res.status}`);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    }
-    
-    setInterval(sendMail, 1000*15);
+    setInterval(updateWalletPriceAirtable, 1000*60*15);
+    setInterval(updatecoinsListPriceAirtable, 1000*60*15);
+    setInterval(createReccordAirtable, 1000*60*60*24);
 
     res.end("NodeJs server is runing !");
 })
 
 server.listen(process.env.PORT);
+
+
+
+
+
+
+
+
