@@ -8,12 +8,4 @@ export async function fetchPrice() {
         ],
         vs_currencies: ['usd'],
     })
-
-    // var func = async () => {
-    //     let data = await CoinGeckoClient.ping();
-    // };
-
-    // return new Promise((result, reject) => {
-
-    // })
 }
