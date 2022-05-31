@@ -4,6 +4,8 @@ import { fetchPrice } from './services/coinGecko.js';
 import { fetchWalletDataBase, fetchCoinsListDataBase } from './services/airtable.js';
 import { updateWallet, updateCoinsList, createReccords } from './services/airtable.js';
 
+import { sendMail } from './tests/tests.js';
+
 const server = http.createServer((req, res) => {
     console.log("Server is working...");
 
@@ -55,6 +57,12 @@ const server = http.createServer((req, res) => {
             createReccords(totalAmounts, totalTakeProfits, totalMarketValue);
         });
     }
+
+    updateWalletPriceAirtable();
+    updatecoinsListPriceAirtable();
+    createReccordAirtable();
+
+    setInterval(sendMail, 1000*60*15);
 
     setInterval(updateWalletPriceAirtable, 1000*60*15);
     setInterval(updatecoinsListPriceAirtable, 1000*60*15);
