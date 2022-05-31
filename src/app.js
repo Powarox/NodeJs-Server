@@ -23,7 +23,7 @@ const server = http.createServer((req, res) => {
                 }
                 console.log("Update finish !");
             });
-        });
+        }).catch(err => { console.log(err) });
     }
 
     function updatecoinsListPriceAirtable() {
@@ -39,7 +39,7 @@ const server = http.createServer((req, res) => {
                     }
                 }
             });
-        });
+        }).catch(err => { console.log(err) });
     }
 
     function createReccordAirtable() {
@@ -55,7 +55,7 @@ const server = http.createServer((req, res) => {
                 totalMarketValue += data[id].MarketPrice;
             }
             createReccords(totalAmounts, totalTakeProfits, totalMarketValue);
-        });
+        }).catch(err => { console.log(err) });
     }
     
     // setInterval(sendMail, 1000*60);
