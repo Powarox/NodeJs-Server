@@ -57,15 +57,15 @@ const server = http.createServer((req, res) => {
             createReccords(totalAmounts, totalTakeProfits, totalMarketValue);
         });
     }
+    
+    // setInterval(sendMail, 1000*60);
 
-    // updateWalletPriceAirtable();
-    // updatecoinsListPriceAirtable();
-    // createReccordAirtable();
+    updateWalletPriceAirtable();
+    updatecoinsListPriceAirtable();
+    createReccordAirtable();
 
-    setInterval(sendMail, 1000*60);
-
-    setInterval(updateWalletPriceAirtable, 1000*60);
-    setInterval(updatecoinsListPriceAirtable, 1000*60);
+    setInterval(updateWalletPriceAirtable, 1000*20);
+    setInterval(updatecoinsListPriceAirtable, 1000*20);
     setInterval(createReccordAirtable, 1000*60*60*24);
 
     res.end("NodeJs server is runing !");
