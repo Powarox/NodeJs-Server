@@ -59,14 +59,18 @@ const server = http.createServer((req, res) => {
     }
     
     // setInterval(sendMail, 1000*60);
+    try {
+        updateWalletPriceAirtable();
+        updatecoinsListPriceAirtable();
+        createReccordAirtable();
+    }
+    catch (error) {
+        console.log(error);
+    }
 
-    updateWalletPriceAirtable();
-    updatecoinsListPriceAirtable();
-    createReccordAirtable();
-
-    setInterval(updateWalletPriceAirtable, 1000*20);
-    setInterval(updatecoinsListPriceAirtable, 1000*20);
-    setInterval(createReccordAirtable, 1000*60*60*24);
+    // setInterval(updateWalletPriceAirtable, 1000*20);
+    // setInterval(updatecoinsListPriceAirtable, 1000*20);
+    // setInterval(createReccordAirtable, 1000*60*60*24);
 
     res.end("NodeJs server is runing !");
 })
