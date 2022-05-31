@@ -12,19 +12,17 @@ const server = http.createServer((req, res) => {
     function updateWalletPriceAirtable() {
         console.log("Start to update wallet price...")
         fetchWalletDataBase().then((data) => {
-            console.log('test');
-        //     console.log(data)
-        //     // fetchPrice().then((price) => {
-        //     //     for(let id in data) {
-        //     //         for(let j in price.data) {
-        //     //             if(data[id].PriceName === j) {
-        //     //                 data[id].MarketPrice = price.data[j].usd
-        //     //                 // updateWallet(data[id], id)
-        //     //             }
-        //     //         }
-        //     //     }
-        //     //     console.log("Update finish !")
-        //     // }).catch((err) => { console.log(err) })
+            fetchPrice().then((price) => {
+                for(let id in data) {
+                    for(let j in price.data) {
+                        if(data[id].PriceName === j) {
+                            data[id].MarketPrice = price.data[j].usd
+                            updateWallet(data[id], id)
+                        }
+                    }
+                }
+                console.log("Update finish !")
+            }).catch((err) => { console.log(err) })
         }).catch((err) => { console.log(err) })
     }
 

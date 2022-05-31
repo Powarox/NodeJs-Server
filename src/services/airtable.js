@@ -50,11 +50,10 @@ export function updateWallet(data, id) {
             "Market Price": data.MarketPrice,
         }
     }],
-    // function (err, records) {
-    //     if (err) { console.error(err); return; }
-    //     records.forEach(() => { })
-    // })
-    )
+    function (err, records) {
+        if (err) { console.error(err); return; }
+        records.forEach(() => { })
+    })
 }
 
 export function updateCoinsList(data, id) {
@@ -64,11 +63,10 @@ export function updateCoinsList(data, id) {
             "Market Price": data.MarketPrice,
         }
     }],
-    // function (err, records) {
-    //     if (err) { console.error(err); return; }
-    //     records.forEach(() => { })
-    // })
-    )
+    function (err, records) {
+        if (err) { console.error(err); return; }
+        records.forEach(() => { })
+    })
 }
 
 export function createReccords(totalAmounts, totalTakeProfits, totalMarketValue) {
@@ -79,10 +77,9 @@ export function createReccords(totalAmounts, totalTakeProfits, totalMarketValue)
             "Total Take Profits $": totalTakeProfits,
         }
     }],
-    // function (err, records) {
-    //     if (err) { console.error(err); return; }
-    //     records.forEach(() => { })
-    // })
-    )
+    function (err, records) {
+        if (err) { console.error(err); return; }
+        records.forEach(() => { })
+    })
 }
             
