@@ -17,7 +17,7 @@ const server = http.createServer((req, res) => {
                     for(let j in price.data) {
                         if(data[id].PriceName === j) {
                             data[id].MarketPrice = price.data[j].usd;
-                            updateWallet(data[id], id);
+                            // updateWallet(data[id], id);
                         }
                     }
                 }
@@ -61,8 +61,8 @@ const server = http.createServer((req, res) => {
     // setInterval(sendMail, 1000*60);
 
     updateWalletPriceAirtable();
-    updatecoinsListPriceAirtable();
-    createReccordAirtable();
+    // updatecoinsListPriceAirtable();
+    // createReccordAirtable();
 
     // setInterval(updateWalletPriceAirtable, 1000*20);
     // setInterval(updatecoinsListPriceAirtable, 1000*20);
