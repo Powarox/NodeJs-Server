@@ -70,12 +70,12 @@ const server = http.createServer((req, res) => {
     res.end("NodeJs server is runing !")
 })
 
+server.listen(process.env.PORT);
+
 const exitHandler = terminate(server, {
     coredump: false,
     timeout: 500,
 });
-
-server.listen(process.env.PORT);
 
 process.on("uncaughtException", exitHandler(1, "Unexpected Error"));
 process.on("unhandledRejection", exitHandler(1, "Unhandled Promise"));
