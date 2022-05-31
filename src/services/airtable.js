@@ -81,7 +81,4 @@ export function createReccords(totalAmounts, totalTakeProfits, totalMarketValue)
     // })
     )
 }
-
-
-
             

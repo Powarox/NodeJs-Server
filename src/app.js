@@ -4,8 +4,6 @@ import { fetchPrice } from './services/coinGecko.js'
 import { fetchWalletDataBase, fetchCoinsListDataBase } from './services/airtable.js'
 import { updateWallet, updateCoinsList, createReccords } from './services/airtable.js'
 
-import { sendMail } from './tests/tests.js'
-
 const server = http.createServer((req, res) => {
     console.log("Server is working...")
 
@@ -26,7 +24,7 @@ const server = http.createServer((req, res) => {
         }).catch((err) => { console.log(err) })
     }
 
-    async function updatecoinsListPriceAirtable() {
+    async function updateCoinsListPriceAirtable() {
         console.log("Start to update coins list price...")
         fetchCoinsListDataBase().then((data) => {
             fetchPrice().then((price) => {
@@ -58,14 +56,12 @@ const server = http.createServer((req, res) => {
         }).catch((err) => { console.log(err) })
     }
     
-    // setInterval(sendMail, 1000*60)
-
     updateWalletPriceAirtable()
     // updatecoinsListPriceAirtable()
     // createReccordAirtable()
 
     // setInterval(updateWalletPriceAirtable, 1000*20)
-    // setInterval(updatecoinsListPriceAirtable, 1000*20)
+    // setInterval(updateCoinsListPriceAirtable, 1000*20)
     // setInterval(createReccordAirtable, 1000*60*60*24)
 
     res.end("NodeJs server is runing !")
