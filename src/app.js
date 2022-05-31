@@ -58,11 +58,11 @@ const server = http.createServer((req, res) => {
         }).catch((err) => { console.log(err) })
     }
     
-    updateWalletPriceAirtable()
+    // updateWalletPriceAirtable()
     // updatecoinsListPriceAirtable()
     // createReccordAirtable()
 
-    // setInterval(updateWalletPriceAirtable, 1000*20)
+    setInterval(updateWalletPriceAirtable, 1000*20)
     // setInterval(updateCoinsListPriceAirtable, 1000*20)
     // setInterval(createReccordAirtable, 1000*60*60*24)
 
