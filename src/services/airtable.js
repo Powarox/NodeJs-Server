@@ -1,7 +1,7 @@
 import { airtableBase } from '../api/connexion.js'
 
 export async function fetchWalletDataBase() {
-    return new Promise((result) => {
+    return new Promise((result, reject) => {
         airtableBase('Wallet').select({
             view: "Grid view"
         }).eachPage(response => {
@@ -16,7 +16,7 @@ export async function fetchWalletDataBase() {
                     PriceName: response[res].fields['Price Name'],
                 }
             }
-            result(data);
+            result(data)
         })
     }).catch(err => { console.log(err) })
 }
@@ -32,9 +32,9 @@ export async function fetchCoinsListDataBase() {
                     Name: response[res].fields["Name"],
                     CoingeckoID: response[res].fields["Coingecko ID"],
                     MarketPrice: response[res].fields["Market Price"],
-                };
+                }
             }
-            result(data);
+            result(data)
         })
     }).catch(err => { console.log(err) })
 }
@@ -46,10 +46,11 @@ export function updateWallet(data, id) {
             "Market Price": data.MarketPrice,
         }
     }],
-    function (err, records) {
-        if (err) { console.error(err); return; }
-        records.forEach(function (record) { });
-    });
+    // function (err, records) {
+    //     if (err) { console.error(err); return; }
+    //     records.forEach(() => { })
+    // })
+    )
 }
 
 export function updateCoinsList(data, id) {
@@ -59,10 +60,11 @@ export function updateCoinsList(data, id) {
             "Market Price": data.MarketPrice,
         }
     }],
-    function (err, records) {
-        if (err) { console.error(err); return; }
-        records.forEach(function (record) { });
-    });
+    // function (err, records) {
+    //     if (err) { console.error(err); return; }
+    //     records.forEach(() => { })
+    // })
+    )
 }
 
 export function createReccords(totalAmounts, totalTakeProfits, totalMarketValue) {
@@ -73,10 +75,11 @@ export function createReccords(totalAmounts, totalTakeProfits, totalMarketValue)
             "Total Take Profits $": totalTakeProfits,
         }
     }],
-    function (err, records) {
-        if (err) { console.error(err); return; }
-        records.forEach(function (record) { });
-    });
+    // function (err, records) {
+    //     if (err) { console.error(err); return; }
+    //     records.forEach(() => { })
+    // })
+    )
 }
 
 
