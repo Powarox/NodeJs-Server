@@ -1,6 +1,6 @@
 import { airtableBase } from '../api/connexion.js'
 
-export function fetchWalletDataBase() {
+export async function fetchWalletDataBase() {
     return new Promise((result) => {
         airtableBase('Wallet').select({
             view: "Grid view"
@@ -21,7 +21,7 @@ export function fetchWalletDataBase() {
     }).catch(err => { console.log(err) })
 }
 
-export function fetchCoinsListDataBase() {
+export async function fetchCoinsListDataBase() {
     return new Promise((result) => {
         airtableBase('Coins List').select({
             view: "Grid view"
