@@ -17,12 +17,14 @@ export async function fetchWalletDataBase() {
                 }
             }
             result(data)
-        })
-    }).catch(err => { console.log(err) })
+        }), function done(err) {
+            if (err) { reject(err) }
+        }
+    })
 }
 
 export async function fetchCoinsListDataBase() {
-    return new Promise((result) => {
+    return new Promise((result, reject) => {
         airtableBase('Coins List').select({
             view: "Grid view"
         }).eachPage(response => {
@@ -35,8 +37,10 @@ export async function fetchCoinsListDataBase() {
                 }
             }
             result(data)
-        })
-    }).catch(err => { console.log(err) })
+        }), function done(err) {
+            if (err) { reject(err) }
+        }
+    })
 }
 
 export function updateWallet(data, id) {
