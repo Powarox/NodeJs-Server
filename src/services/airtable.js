@@ -18,7 +18,7 @@ export function fetchWalletDataBase() {
             }
             result(data);
         })
-    })
+    }).catch(err => { console.log(err) })
 }
 
 export function fetchCoinsListDataBase() {
@@ -36,7 +36,7 @@ export function fetchCoinsListDataBase() {
             }
             result(data);
         })
-    })
+    }).catch(err => { console.log(err) })
 }
 
 export function updateWallet(data, id) {

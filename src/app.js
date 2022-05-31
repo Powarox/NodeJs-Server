@@ -11,45 +11,35 @@ const server = http.createServer((req, res) => {
 
     function updateWalletPriceAirtable() {
         console.log("Start to update wallet price...");
-        try {
-            fetchWalletDataBase().then((data) => {
-                fetchPrice().then((price) => {
-                    for (let id in data) {
-                        for (let j in price.data) {
-                            if (data[id].PriceName === j) {
-                                data[id].MarketPrice = price.data[j].usd;
-                                updateWallet(data[id], id);
-                            }
+        fetchWalletDataBase().then((data) => {
+            fetchPrice().then((price) => {
+                for(let id in data) {
+                    for(let j in price.data) {
+                        if(data[id].PriceName === j) {
+                            data[id].MarketPrice = price.data[j].usd;
+                            updateWallet(data[id], id);
                         }
                     }
-                    // console.log("Update finish !");
-                });
+                }
+                console.log("Update finish !");
             });
-        }
-        catch (error) {
-            console.log(error);
-        }
+        });
     }
 
     function updatecoinsListPriceAirtable() {
         console.log("Start to update coins list price...");
-        try {
-            fetchCoinsListDataBase().then((data) => {
-                fetchPrice().then((price) => {
-                    for (let id in data) {
-                        for (let j in price.data) {
-                            if (data[id].CoingeckoID === j) {
-                                data[id].MarketPrice = price.data[j].usd;
-                                updateCoinsList(data[id], id);
-                            }
+        fetchCoinsListDataBase().then((data) => {
+            fetchPrice().then((price) => {
+                for (let id in data) {
+                    for (let j in price.data) {
+                        if (data[id].CoingeckoID === j) {
+                            data[id].MarketPrice = price.data[j].usd;
+                            updateCoinsList(data[id], id);
                         }
                     }
-                });
+                }
             });
-        } 
-        catch (error) {
-            console.log(error);
-        }
+        });
     }
 
     function createReccordAirtable() {
@@ -58,30 +48,21 @@ const server = http.createServer((req, res) => {
         let totalMarketValue = 0;
         let totalTakeProfits = 0;
 
-        try {
-            fetchWalletDataBase().then((data) => {
-                for (let id in data) {
-                    totalAmounts += data[id].Amounts;
-                    totalTakeProfits += data[id].Selled;
-                    totalMarketValue += data[id].MarketPrice;
-                }
-                createReccords(totalAmounts, totalTakeProfits, totalMarketValue);
-            });
-        } 
-        catch (error) {
-            console.log(error);
-        }
+        fetchWalletDataBase().then((data) => {
+            for (let id in data) {
+                totalAmounts += data[id].Amounts;
+                totalTakeProfits += data[id].Selled;
+                totalMarketValue += data[id].MarketPrice;
+            }
+            createReccords(totalAmounts, totalTakeProfits, totalMarketValue);
+        });
     }
     
     // setInterval(sendMail, 1000*60);
-    try {
-        updateWalletPriceAirtable();
-        updatecoinsListPriceAirtable();
-        createReccordAirtable();
-    }
-    catch (error) {
-        console.log(error);
-    }
+
+    updateWalletPriceAirtable();
+    updatecoinsListPriceAirtable();
+    createReccordAirtable();
 
     // setInterval(updateWalletPriceAirtable, 1000*20);
     // setInterval(updatecoinsListPriceAirtable, 1000*20);
