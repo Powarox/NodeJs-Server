@@ -9,7 +9,7 @@ import { sendMail } from './tests/tests.js';
 const server = http.createServer((req, res) => {
     console.log("Server is working...");
 
-    function updateWalletPriceAirtable() {
+    async function updateWalletPriceAirtable() {
         console.log("Start to update wallet price...");
         fetchWalletDataBase().then((data) => {
             fetchPrice().then((price) => {
@@ -26,7 +26,7 @@ const server = http.createServer((req, res) => {
         }).catch(err => { console.log(err) });
     }
 
-    function updatecoinsListPriceAirtable() {
+    async function updatecoinsListPriceAirtable() {
         console.log("Start to update coins list price...");
         fetchCoinsListDataBase().then((data) => {
             fetchPrice().then((price) => {
@@ -42,7 +42,7 @@ const server = http.createServer((req, res) => {
         }).catch(err => { console.log(err) });
     }
 
-    function createReccordAirtable() {
+    async function createReccordAirtable() {
         console.log("Create new reccord of total value...");
         let totalAmounts = 0;
         let totalMarketValue = 0;
