@@ -4,7 +4,7 @@ import { fetchPrice } from './services/coinGecko.js'
 import { fetchWalletDataBase, fetchCoinsListDataBase } from './services/airtable.js'
 import { updateWallet, updateCoinsList, createReccords } from './services/airtable.js'
 
-import terminate from './terminate'
+import { terminate } from './services/terminate.js'
 
 const server = http.createServer((req, res) => {
     console.log("Server is working...")
