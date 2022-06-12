@@ -4,8 +4,6 @@ import { fetchPrice } from './services/coinGecko.js'
 import { fetchWalletDataBase, fetchCoinsListDataBase } from './services/airtable.js'
 import { updateWallet, updateCoinsList, createReccords } from './services/airtable.js'
 
-import { terminate } from './services/terminate.js'
-
 const server = http.createServer((req, res) => {
     console.log("Server is working...")
 
@@ -26,7 +24,7 @@ const server = http.createServer((req, res) => {
         }).catch((err) => { console.log(err) })
     }
 
-    async function updateCoinsListPriceAirtable() {
+    function updateCoinsListPriceAirtable() {
         console.log("Start to update coins list price...")
         fetchCoinsListDataBase().then((data) => {
             fetchPrice().then((price) => {
@@ -42,7 +40,7 @@ const server = http.createServer((req, res) => {
         }).catch((err) => { console.log(err) })
     }
 
-    async function createReccordAirtable() {
+    function createReccordAirtable() {
         console.log("Create new reccord of total value...")
         let totalAmounts = 0
         let totalMarketValue = 0
@@ -70,17 +68,3 @@ const server = http.createServer((req, res) => {
 })
 
 server.listen(process.env.PORT);
-
-
-
-
-const exitHandler = terminate(server, {
-    coredump: false,
-    timeout: 500,
-});
-
-process.on("uncaughtException", exitHandler(1, "Unexpected Error"));
-process.on("unhandledRejection", exitHandler(1, "Unhandled Promise"));
-process.on("SIGTERM", exitHandler(0, "SIGTERM"));
-process.on("SIGINT", exitHandler(0, "SIGINT"));
-

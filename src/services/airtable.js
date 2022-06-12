@@ -45,8 +45,8 @@ export async function fetchCoinsListDataBase() {
 
 export function updateWallet(data, id) {
     airtableBase('Wallet').update([{
-        "id": id,
-        "fields": {
+        id: id,
+        fields: {
             "Market Price": data.MarketPrice,
         }
     }],
@@ -58,8 +58,8 @@ export function updateWallet(data, id) {
 
 export function updateCoinsList(data, id) {
     airtableBase('Coins List').update([{
-        "id": id,
-        "fields": {
+        id: id,
+        fields: {
             "Market Price": data.MarketPrice,
         }
     }],
@@ -71,7 +71,7 @@ export function updateCoinsList(data, id) {
 
 export function createReccords(totalAmounts, totalTakeProfits, totalMarketValue) {
     airtableBase('Wallet History').create([{
-        "fields": {
+        fields: {
             "Total Amounts": totalAmounts,
             "Total Market Value": totalMarketValue,
             "Total Take Profits $": totalTakeProfits,
