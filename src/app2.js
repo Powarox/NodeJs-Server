@@ -7,7 +7,15 @@ app.use(express.json());
 
 
 app.get('/api', (req, res) => {
-    res.status(200).send("API REST");
+    if (req.headers.authorization === process.env.REST_API_KEY) {
+        // TODO : func code or func call
+
+        return res.status(200).json({message: 'Auth Success'});
+    }
+    
+    res.status(403).json({
+        message: "Auth Failed",
+    });
 });
 
 app.get('/api/update/wallet', (req, res) => {
@@ -16,8 +24,9 @@ app.get('/api/update/wallet', (req, res) => {
 });
 
 app.get('/api/update/list', (req, res) => {
-    res.send('Update Coins List');
-    res.status(200);
+   res.status(200).json({
+       message: "Welcome to the project-name api",
+   });
 });
 
 app.post("/api/create", (req, res) => {
@@ -25,5 +34,9 @@ app.post("/api/create", (req, res) => {
     res.status(200);
 });
 
+// throw 404 if URL not found
+app.all("*", function(req, res) {
+	return apiResponse.notFoundResponse(res, "Page not found");
+});
 
 app.listen(process.env.PORT);
