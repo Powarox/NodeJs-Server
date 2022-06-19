@@ -14,39 +14,35 @@ app.get('/api', (req, res) => {
     }
 });
 
-app.get('/api/update/wallet', (req, res) => {
-    if (authorization(req)) {
+app.get('/api/update/all', (req, res) => {
+    if (authorization(req, res)) {
         control.updateWalletPriceAirtable()
-        response.successResponse(res, "Auth success")
+        control.updateCoinsListPriceAirtable()
+        response.successResponse(res, "All update")
+    }
+});
+
+app.get('/api/update/wallet', (req, res) => {
+    if (authorization(req, res)) {
+        control.updateWalletPriceAirtable()
+        response.successResponse(res, "Wallet update")
     }
 });
 
 app.get("/api/update/list", (req, res) => {
-    if (authorization(req)) {
+    if (authorization(req, res)) {
         control.updateCoinsListPriceAirtable()
-        response.successResponse(res, "Auth success")
+        response.successResponse(res, "Coins list update")
     }
 });
 
-app.post("/api/create/record/history", (req, res) => {
-    if (authorization(req)) {
+app.get("/api/create/record/history", (req, res) => {
+    if (authorization(req, res)) {
         control.createReccordAirtable()
-        response.successResponse(res, "Auth success")
+        response.successResponse(res, "History record create")
     }
 });
 
-app.get('/api/update/list', (req, res) => {
-   res.status(200).json({
-       message: "Welcome to the project-name api",
-   });
-});
-
-app.post("/api/create", (req, res) => {
-    res.send("Create global report");
-    res.status(200);
-});
-
-// throw 404 if URL not found
 app.all("*", (req, res) => {
     response.notFoundResponse(res, "Page not found");
 });
