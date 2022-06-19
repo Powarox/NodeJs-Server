@@ -1,5 +1,6 @@
 import express from "express";
 import {} from "dotenv/config";
+import * as response from './helpers/responses.js';
 
 const app = express();
 
@@ -16,6 +17,10 @@ app.get('/api', (req, res) => {
     res.status(403).json({
         message: "Auth Failed",
     });
+});
+
+app.get("/test", (req, res) => {
+    response.successResponse(res, 'Succes msg');
 });
 
 app.get('/api/update/wallet', (req, res) => {
