@@ -1,70 +1,50 @@
-import http from 'http'
-import { } from 'dotenv/config'
-import { fetchPrice } from './services/coinGecko.js'
-import { fetchWalletDataBase, fetchCoinsListDataBase } from './services/airtable.js'
-import { updateWallet, updateCoinsList, createReccords } from './services/airtable.js'
+import express from "express"
+import {} from "dotenv/config"
+import * as response from './helpers/responses.js'
+import * as control from './controllers/control.js'
+import { authorization } from './middlewares/auth.js'
 
-const server = http.createServer((req, res) => {
-    console.log("Server is working...")
+const app = express();
 
-    function updateWalletPriceAirtable() {
-        console.log("Start to update wallet price...")
-        fetchWalletDataBase().then((data) => {
-            fetchPrice().then((price) => {
-                for(let id in data) {
-                    for(let j in price.data) {
-                        if(data[id].PriceName === j) {
-                            data[id].MarketPrice = price.data[j].usd
-                            updateWallet(data[id], id)
-                        }
-                    }
-                }
-                console.log("Update finish !")
-            }).catch((err) => { console.log(err) })
-        }).catch((err) => { console.log(err) })
+// app.use(express.json());
+
+app.get('/api', (req, res) => {
+    if (authorization(req)) {
+        response.successResponse(res, "Auth success")
     }
+});
 
-    function updateCoinsListPriceAirtable() {
-        console.log("Start to update coins list price...")
-        fetchCoinsListDataBase().then((data) => {
-            fetchPrice().then((price) => {
-                for (let id in data) {
-                    for (let j in price.data) {
-                        if (data[id].CoingeckoID === j) {
-                            data[id].MarketPrice = price.data[j].usd
-                            updateCoinsList(data[id], id)
-                        }
-                    }
-                }
-            }).catch((err) => { console.log(err) })
-        }).catch((err) => { console.log(err) })
+app.get('/api/update/all', (req, res) => {
+    if (authorization(req, res)) {
+        control.updateWalletPriceAirtable()
+        control.updateCoinsListPriceAirtable()
+        response.successResponse(res, "All update")
     }
+});
 
-    function createReccordAirtable() {
-        console.log("Create new reccord of total value...")
-        let totalAmounts = 0
-        let totalMarketValue = 0
-        let totalTakeProfits = 0
-
-        fetchWalletDataBase().then((data) => {
-            for (let id in data) {
-                totalAmounts += data[id].Amounts
-                totalTakeProfits += data[id].Selled
-                totalMarketValue += data[id].MarketPrice
-            }
-            createReccords(totalAmounts, totalTakeProfits, totalMarketValue)
-        }).catch((err) => { console.log(err) })
+app.get('/api/update/wallet', (req, res) => {
+    if (authorization(req, res)) {
+        control.updateWalletPriceAirtable()
+        response.successResponse(res, "Wallet update")
     }
-    
-    updateWalletPriceAirtable()
-    updateCoinsListPriceAirtable()
-    createReccordAirtable()
+});
 
-    setInterval(updateWalletPriceAirtable, 1000*60*15)
-    setInterval(updateCoinsListPriceAirtable, 1000*60*15)
-    setInterval(createReccordAirtable, 1000*60*60*24)
+app.get("/api/update/list", (req, res) => {
+    if (authorization(req, res)) {
+        control.updateCoinsListPriceAirtable()
+        response.successResponse(res, "Coins list update")
+    }
+});
 
-    res.end("NodeJs server is runing !")
-})
+app.get("/api/create/record/history", (req, res) => {
+    if (authorization(req, res)) {
+        control.createReccordAirtable()
+        response.successResponse(res, "History record create")
+    }
+});
 
-server.listen(process.env.PORT);
+app.all("*", (req, res) => {
+    response.notFoundResponse(res, "Page not found");
+});
+
+app.listen(process.env.PORT);
