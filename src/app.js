@@ -10,6 +10,7 @@ const app = express();
 
 app.get('/api', (req, res) => {
     if (authorization(req, res)) {
+        console.log('impossible');
         response.successResponse(res, "Auth success")
     }
 });

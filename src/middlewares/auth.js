@@ -3,7 +3,8 @@ import * as response from "../helpers/responses.js"
 
 export function authorization(req, res) {
     if (req.headers.authorization === process.env.REST_API_KEY) {
-        return true;
+        return true
     }
-    return response.unauthorizedResponse(res, "Access denied");
+    response.unauthorizedResponse(res, "Access denied")
+    return false
 }
