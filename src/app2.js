@@ -1,22 +1,17 @@
-import express from "express";
-import {} from "dotenv/config";
-import * as response from './helpers/responses.js';
+import express from "express"
+import {} from "dotenv/config"
+import { authorization } from './middlewares/auth.js'
+import * as response from './helpers/responses.js'
 
 const app = express();
 
-app.use(express.json());
-
+// app.use(express.json());
 
 app.get('/api', (req, res) => {
-    if (req.headers.authorization === process.env.REST_API_KEY) {
+    if (auth.authorization(req)) {
         // TODO : func code or func call
-
-        return res.status(200).json({message: 'Auth Success'});
+        response.successResponse(res, "Auth success")
     }
-    
-    res.status(403).json({
-        message: "Auth Failed",
-    });
 });
 
 app.get("/test", (req, res) => {
@@ -40,8 +35,8 @@ app.post("/api/create", (req, res) => {
 });
 
 // throw 404 if URL not found
-app.all("*", function(req, res) {
-	return apiResponse.notFoundResponse(res, "Page not found");
+app.all("*", (req, res) => {
+    response.notFoundResponse(res, "Page not found");
 });
 
 app.listen(process.env.PORT);
